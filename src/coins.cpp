@@ -88,8 +88,8 @@ Coins ask_for_coins(istream& in, ostream& out) {
 }
 
 bool Coins::has_exact_change_for_coins(Coins const& coins) const {
-    if (quarters <= coins.quarters && dimes <= coins.dimes && nickels <= coins.nickels
-    && pennies <= coins.pennies) {
+    if (quarters >= coins.quarters && dimes >= coins.dimes && nickels >= coins.nickels
+    && pennies >= coins.pennies) {
         return true;
     } else {
         return false;
