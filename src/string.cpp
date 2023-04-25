@@ -5,7 +5,7 @@ using namespace std;
 #include "string.hpp"
 
 String::String(const char *s) {
-    if (strlen(s) >= MAXLEN-1) {
+    if (strlen(s) > MAXLEN-1) {
         cout << "ERROR: String Capacity Exceeded" << endl;
     } else {
         strncpy(buf, s, MAXLEN-1);
@@ -197,13 +197,16 @@ String String::reverse() const {
 
 const char *String::strchr(const char *str, char c) {
     for (int i = 0; str[i] != '\0'; ++i) {
-        if (str[i] == c)
+        if (str[i] == c) {
             return &str[i];
+        }
     }
-    return nullptr;
+    return 0;
 }        
 
 const char *String::strstr(const char *haystack, const char *needle) {
+    if (needle[0] == '\0')
+        return 0;
     int haystackLen = strlen(haystack);
     int needleLen = strlen(needle);
     for (int i = 0; i <= haystackLen-needleLen; ++i) {
@@ -217,16 +220,22 @@ const char *String::strstr(const char *haystack, const char *needle) {
             return &haystack[i];
         }
     }
-    return nullptr;
+    return 0;
 }
 
 
 int String::indexOf(char c) const {
-    return strchr(buf, c)-buf;
+    const char *o = strchr(buf, c);
+    if (o == 0)
+        return -1;
+    return o-buf;
 }
 
 int String::indexOf(const String &s) const {
-    return strstr(buf, s.buf)-buf;
+    const char *o = strstr(buf, s.buf);
+    if (o == 0)
+        return -1;
+    return o-buf;
 }
 
 char &String::operator[](int index) {
