@@ -62,11 +62,7 @@ ostream &operator<<(ostream &out, const String &s) {
 }
 
 void String::read(istream &in) {
-    char temp[MAXLEN * 2];
-    in.get(temp, MAXLEN * 2);
-    strncpy(buf, temp, MAXLEN-1);
-    if (strlen(buf) < in.gcount())
-        cout << "ERROR: String Capacity Exceeded" << endl;
+    in >> buf;
 }
 
 istream &operator>>(istream &in, String &s) {
@@ -214,7 +210,10 @@ const char *String::strstr(const char *haystack, const char *needle) {
 
 int String::indexOf(char c) const {
     const char *o = strchr(buf, c);
-    return o-buf;
+    if (o != nullptr)
+        return o-buf;
+    else
+        return -1;
 }
 
 int String::indexOf(const String &s) const {
@@ -226,7 +225,7 @@ int String::indexOf(const String &s) const {
 }
 
 char &String::operator[](int index) {
-    if (index < 0 || index > strlen(buf)) {
+    if (index < 0 || index >= strlen(buf)) {
         cout << "ERROR: Index Out Of Bounds" << endl;
         return buf[0];
     } else {
