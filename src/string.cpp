@@ -126,12 +126,14 @@ int String::strcmp(const char *left, const char *right) {
     for (int i = 0; i <= leftLength; ++i) {
         if (left[i] < right[i]) {
             return -1;
-        } else if (left[i] == '\0' && right[i] != '\0') {
-            return -1;
         } else if (left[i] > right[i]) {
             return 1;
+        } else if (left[i] == '\0' && right[i] != '\0') {
+            return -1;
         } else if (left[i] != '\0' && right[i] == '\0') {
             return 1;
+        } else if (left[i] == '\0' && right[i] == '\0') {
+            return 0;
         }
     }
     return 0;
@@ -148,6 +150,8 @@ int String::strncmp(const char *left, const char *right, int n) {
             return 1;
         } else if (left[i] != '\0' && right[i] == '\0') {
             return 1;
+        } else if (left[i] == '\0' && right[i] == '\0') {
+            return 0;
         }
     }
     return 0;
@@ -192,10 +196,7 @@ String String::reverse() const {
 }
 
 const char *String::strchr(const char *str, char c) {
-    if (c == '\0')
-        return nullptr;
-    int len = strlen(str);
-    for (int i = 0; i <= len; ++i)
+    for (int i = 0; str[i] != '\0'; ++i)
         if (str[i] == c)
             return &str[i];
     return nullptr;
