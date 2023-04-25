@@ -25,8 +25,7 @@ String::String(const String &s) {
 }
 
 char *String::strcpy(char *dest, const char *src) {
-    int srcLength = strlen(src);
-    int i = 0;
+    int srcLength = strlen(src), i = 0;
     for ( ; i < srcLength; ++i)
         dest[i] = src[i];
     dest[i] = '\0';
@@ -63,7 +62,11 @@ ostream &operator<<(ostream &out, const String &s) {
 }
 
 void String::read(istream &in) {
-    in >> buf;
+    char temp[MAXLEN * 2];
+    in.get(temp, MAXLEN * 2);
+    strncpy(buf, temp, MAXLEN-1);
+    if (strlen(buf) < in.gcount())
+        cout << "ERROR: String Capacity Exceeded" << endl;
 }
 
 istream &operator>>(istream &in, String &s) {
@@ -72,8 +75,7 @@ istream &operator>>(istream &in, String &s) {
 }
 
 char *String::strcat(char *dest, const char *src) {
-    int destLength = strlen(dest);
-    int srcLength = strlen(src);
+    int destLength = strlen(dest), srcLength = strlen(src);
     int i = destLength;
     for ( ; i < destLength + srcLength; ++i)
     {
@@ -84,8 +86,7 @@ char *String::strcat(char *dest, const char *src) {
 }
 
 char *String::strncat(char *dest, const char *src, int n) {
-    int destLength = strlen(dest);
-    int srcLength = strlen(src);
+    int destLength = strlen(dest), srcLength = strlen(src);
     int i = destLength;
     
     if (n < srcLength) {
@@ -105,7 +106,7 @@ String String::operator+(const String &s) const {
         return *this;
     } else {
         String output(buf);
-        strcat(output.buf, s.buf);
+        strncat(output.buf, s.buf, MAXLEN-1);
         return output;
     }
 }
@@ -115,7 +116,7 @@ String &String::operator+=(const String &s) {
         cout << "ERROR: String Capacity Exceeded" << endl;
         return *this;
     } else {
-        strcat(buf, s.buf);
+        strncat(buf, s.buf, MAXLEN-1);
         return *this;
     }
 }
@@ -125,14 +126,12 @@ int String::strcmp(const char *left, const char *right) {
     for (int i = 0; i <= leftLength; ++i) {
         if (left[i] < right[i]) {
             return -1;
-        } else if (left[i] > right[i]) {
-            return 1;
         } else if (left[i] == '\0' && right[i] != '\0') {
             return -1;
+        } else if (left[i] > right[i]) {
+            return 1;
         } else if (left[i] != '\0' && right[i] == '\0') {
             return 1;
-        } else if (left[i] == '\0' && right[i] == '\0') {
-            return 0;
         }
     }
     return 0;
@@ -143,14 +142,12 @@ int String::strncmp(const char *left, const char *right, int n) {
     for ( ; i < n; ++i) {
         if (left[i] < right[i]) {
             return -1;
-        } else if (left[i] > right[i]) {
-            return 1;
         } else if (left[i] == '\0' && right[i] != '\0') {
             return -1;
+        } else if (left[i] > right[i]) {
+            return 1;
         } else if (left[i] != '\0' && right[i] == '\0') {
             return 1;
-        } else if (left[i] == '\0' && right[i] == '\0') {
-            return 0;
         }
     }
     return 0;
@@ -181,8 +178,7 @@ bool String::operator>=(const String &s) const {
 }
 
 void String::reverse_cpy(char *dest, const char *src) {
-    int j = 0;
-    int i = strlen(src)-1;
+    int j = 0, i = strlen(src)-1;
     for ( ; i >= 0; --i, ++j) {
         dest[j] = src[i];
     }
@@ -196,46 +192,36 @@ String String::reverse() const {
 }
 
 const char *String::strchr(const char *str, char c) {
-    for (int i = 0; str[i] != '\0'; ++i) {
-        if (str[i] == c) {
+    if (c == '\0')
+        return nullptr;
+    int len = strlen(str);
+    for (int i = 0; i <= len; ++i)
+        if (str[i] == c)
             return &str[i];
-        }
-    }
-    return 0;
+    return nullptr;
 }        
 
 const char *String::strstr(const char *haystack, const char *needle) {
-    if (needle[0] == '\0')
-        return 0;
-    int haystackLen = strlen(haystack);
-    int needleLen = strlen(needle);
-    for (int i = 0; i <= haystackLen-needleLen; ++i) {
-        int count = 0;
-        for (int j = 0; j < needleLen; ++j) {
-            if (haystack[i+j] == needle[j]) {
-                ++count;
-            }
-        }
-        if (count == needleLen) {
-            return &haystack[i];
-        }
-    }
-    return 0;
+    int len = strlen(needle);
+
+    for (const char * p = haystack; (p = strchr(p, needle[0])); ++p)
+        if (strncmp(p, needle, len) == 0)
+            return p;
+    return nullptr;
 }
 
 
 int String::indexOf(char c) const {
     const char *o = strchr(buf, c);
-    if (o == 0)
-        return -1;
     return o-buf;
 }
 
 int String::indexOf(const String &s) const {
     const char *o = strstr(buf, s.buf);
-    if (o == 0)
+    if (o != nullptr)
+        return o-buf;
+    else
         return -1;
-    return o-buf;
 }
 
 char &String::operator[](int index) {
