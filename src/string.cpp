@@ -137,6 +137,8 @@ int String::strcmp(const char *left, const char *right) {
 
 int String::strncmp(const char *left, const char *right, int n) {
     int i = 0;
+    if (n == 0)
+        return 0;
     for ( ; i < n; ++i) {
         if (left[i] < right[i]) {
             return -1;
@@ -192,7 +194,8 @@ String String::reverse() const {
 }
 
 const char *String::strchr(const char *str, char c) {
-    for (int i = 0; str[i] != '\0'; ++i)
+    int len = strlen(str);
+    for (int i = 0; i <= len; ++i)
         if (str[i] == c)
             return &str[i];
     return nullptr;
@@ -200,6 +203,8 @@ const char *String::strchr(const char *str, char c) {
 
 const char *String::strstr(const char *haystack, const char *needle) {
     int len = strlen(needle);
+    if (len == 0)
+        return &haystack[0];
 
     for (const char * p = haystack; (p = strchr(p, needle[0])); ++p)
         if (strncmp(p, needle, len) == 0)
