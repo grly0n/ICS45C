@@ -6,7 +6,7 @@ using namespace std;
 
 String::String(const char *s) {
     if (strlen(s) > MAXLEN-1) {
-        cout << "ERROR: String Capacity Exceeded" << endl;
+        cout << "ERROR: String Capacity Exceeded";
     } else {
         strncpy(buf, s, MAXLEN-1);
     }
@@ -98,7 +98,7 @@ char *String::strncat(char *dest, const char *src, int n) {
 
 String String::operator+(const String &s) const {
     if (s.size() + size() >= MAXLEN-1) {
-        cout << "ERROR: String Capacity Exceeded" << endl;
+        cout << "ERROR: String Capacity Exceeded";
         return *this;
     } else {
         String output(buf);
@@ -109,7 +109,7 @@ String String::operator+(const String &s) const {
 
 String &String::operator+=(const String &s) {
     if (s.size() + size() >= MAXLEN-1) {
-        cout << "ERROR: String Capacity Exceeded" << endl;
+        cout << "ERROR: String Capacity Exceeded";
         return *this;
     } else {
         strncat(buf, s.buf, MAXLEN-1);
@@ -231,7 +231,7 @@ int String::indexOf(const String &s) const {
 
 char &String::operator[](int index) {
     if (index < 0 || index >= strlen(buf)) {
-        cout << "ERROR: Index Out Of Bounds" << endl;
+        cout << "ERROR: Index Out Of Bounds";
         return buf[0];
     } else {
         return buf[index];
