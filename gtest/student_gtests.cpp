@@ -92,6 +92,12 @@ TEST(StringFunction, strncmp) {
     EXPECT_EQ(String::strncmp("This is a string", "Albuquerque", 0), 0);
     EXPECT_GT(String::strncmp("testing", "test", 10), 0);
     EXPECT_EQ(String::strncmp("foolish", "foolish", 20), 0);
+
+    EXPECT_LT(String::strncmp("test", "testa", 5), 0);
+    EXPECT_LT(String::strncmp("test", "testa", 10), 0);
+    EXPECT_LT(String::strncmp("", ".", 1), 0);
+    EXPECT_GT(String::strncmp("aaz", "aaba", 3), 0);
+    EXPECT_GT(String::strncmp("nope", "nopa", 4), 0);
 }
 
 TEST(StringFunction, reverse_cpy) {

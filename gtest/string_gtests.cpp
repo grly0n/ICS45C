@@ -19,7 +19,7 @@ TEST(StringClass, Constructors) {
     EXPECT_EQ(u.size(), 5);
     EXPECT_EQ(s.size(), 5);
 }
-/*
+
 TEST(StringClass, Print) {
     String s("foo");
     stringstream out;
@@ -34,7 +34,7 @@ TEST(StringClass, Print) {
     out3 << s << s << String("bar");
     EXPECT_STREQ(out3.str().c_str(), "foofoobar");
 }
-*/
+
 
 TEST(StringClass, Comparisons) {
     EXPECT_LT(String("aaaa"), String("aaab"));
@@ -57,4 +57,20 @@ TEST(StringClass, Assignment) {
     s = String();
     EXPECT_EQ(s, String());
     EXPECT_EQ(s.size(), 0);
+}
+
+TEST(StringClass, Reverse) {
+    String s("reversed"), t;
+    t = s.reverse();
+    EXPECT_EQ(t.size(), s.size());
+
+    String a("");
+    t = a.reverse();
+    EXPECT_EQ(t.size(), a.size());
+}
+
+TEST(StringClass, Plus) {
+    String s("First"), t("Second");
+    String u = s + t;
+    EXPECT_EQ(u.size(), 11);
 }

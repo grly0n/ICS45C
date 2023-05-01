@@ -16,6 +16,7 @@ String::String(String &&s) : buf(s.buf) {s.buf = nullptr;}
 
 
 String &String::operator=(const String& s) {
+    if (&s == this) return *this;
     if (buf) delete[] buf;
     buf = strdup(s.buf);
     return *this;
@@ -110,9 +111,9 @@ int String::strcmp(const char* left, const char* right) {
 
 int String::strncmp(const char* left, const char* right, int n) {
     int i = 0;
-    for (; left[i] != '\0' && i < n; ++i)
+    for (; i < n; ++i)
         if (left[i] < right[i]) return -1;
-        else if (left[i] < right[i]) return 1;
+        else if (left[i] > right[i]) return 1;
         else if (left[i] == '\0' && right[i] != '\0') return -1;
         else if (left[i] != '\0' && right[i] == '\0') return 1;
         else if (left[i] == '\0' && right[i] == '\0') return 0;
@@ -121,10 +122,9 @@ int String::strncmp(const char* left, const char* right, int n) {
 
 
 const char *String::strchr(const char *str, char c) {
-    int i = 0;
-    for (; str[i] != '\0'; ++i)
+    int len = strlen(str);
+    for (int i = 0; i <= len; ++i)
         if (str[i] == c) return &str[i];
-    if (str[i] == c) return &str[i];
     return nullptr;
 }
 
@@ -194,7 +194,7 @@ bool String::operator>=(const String& s) const {return (strcmp(buf, s.buf) >= 0)
 
 
 String String::reverse() const {
-    String output(strlen(buf));
+    String output(strlen(buf)+1);
     reverse_cpy(output.buf, buf);
     return output;
 }
