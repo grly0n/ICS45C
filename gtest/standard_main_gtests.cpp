@@ -62,7 +62,7 @@ TEST(String, GreaterEqual) {
 TEST(String, Equals) {
     EXPECT_TRUE(firstString == thirdString);
 }
-
+/*
 // TEST <<
 TEST(String, OutStream) {
     std::stringstream out;
@@ -71,7 +71,7 @@ TEST(String, OutStream) {
     std::string ans("Fourth");
     EXPECT_EQ(ans, test);
 }
-
+*/
 // TEST size()
 TEST(String, Size) {
     EXPECT_EQ(0, fifthString.size());

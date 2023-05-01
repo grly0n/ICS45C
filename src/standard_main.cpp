@@ -1,9 +1,20 @@
 #include <iostream>
+#include <utility>
 
 #include "alloc.hpp"
 #include "string.hpp"
 
 using namespace std;
+
+void test_move() {
+    AllocationTracker tracker;
+    {
+    String foo1("foo"), foo2("foo");
+    String s{move(foo1)};
+    s = move(foo2);
+    }
+    tracker.print_allocation_report(cout);
+}
 
 void run_tests() {
     String firstString("First");
@@ -44,4 +55,5 @@ int main() {
     AllocationTracker tracker;
     run_tests();
     tracker.print_allocation_report(std::cout);
+    test_move();
 }
