@@ -23,6 +23,20 @@ TEST(StringFunction, strcpy) {
     EXPECT_STREQ(result, "");
 }
 
+TEST(StringFunction, strdup) {
+    char* result1 = String::strdup("hello");
+    EXPECT_STREQ(result1, "hello");
+    delete[] result1;
+
+    char* result2 = String::strdup("");
+    EXPECT_STREQ(result2, "");
+    delete[] result2;
+
+    char* result3 = String::strdup("A very long string with spaces and $p3c1@l characters!");
+    EXPECT_STREQ(result3, "A very long string with spaces and $p3c1@l characters!");
+    delete[] result3;
+}
+
 TEST(StringFunction, strncpy) {
     EXPECT_TRUE(false);
 }
