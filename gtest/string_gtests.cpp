@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <iostream>
 
 #include "string.hpp"
 
@@ -73,4 +74,12 @@ TEST(StringClass, Plus) {
     String s("First"), t("Second");
     String u = s + t;
     EXPECT_EQ(u.size(), 11);
+
+    String a("foo"), b("bar");
+    a += b;
+    EXPECT_EQ(a.size(), 6);
+
+    String c("Nothing"), d;
+    c += d;
+    EXPECT_EQ(c.size(), 7);
 }

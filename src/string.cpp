@@ -172,7 +172,7 @@ char &String::operator[](int index) {
 
 
 const char &String::operator[](int index) const {
-    if (index < 0 || index > strlen(buf)) {
+    if (index < 0 || index >= strlen(buf)) {
         cout << "ERROR: Index out of bounds ";
         return buf[0];
     }
@@ -209,11 +209,10 @@ String String::operator+(const String& s) const {
 
 
 String &String::operator+=(const String& s) {
-    String temp(buf);
-    if (buf) delete[] buf;
-    buf = new char[strlen(temp.buf) + strlen(s.buf) + 1];
-    strcpy(buf, temp.buf);
-    strcat(buf, s.buf);
+    String output(strlen(buf) + strlen(s.buf) + 1);
+    strcpy(output.buf, buf);
+    strcat(output.buf, s.buf);
+    swap(output);
     return *this;
 }
 
