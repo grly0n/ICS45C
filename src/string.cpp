@@ -77,8 +77,9 @@ String String::operator+(const String& s) const {
 }
 
 String &String::operator+=(const String& s) {
-    String newString{list::append(head, s.head)};
-    swap(newString);
+    list::Node* end = list::last(head);
+    list::Node* sCopy = list::copy(s.head);
+    end->next = sCopy;
     return *this;
 }
 

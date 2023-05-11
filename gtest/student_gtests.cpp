@@ -168,14 +168,17 @@ TEST(ListTests, Index) {
 
 TEST(ListTests, find_char) {
     Node* const head1 = list::from_string("Plin plin plon");
-    Node *result1 = list::find_char(head1, 'o'), *result2 = list::find_char(head1, '\0');
+    Node *result1 = list::find_char(head1, 'o'), *result2 = list::find_char(head1, '\0'), *result3 = list::find_char(head1, 'z');
     EXPECT_EQ(list::index(head1, result1), 12);
     EXPECT_EQ(list::index(head1, result2), 0);
+    EXPECT_EQ(list::index(head1, result3), -1);
     list::free(head1);
 
     Node* const head2 = list::from_string("");
     result1 = list::find_char(head2, 'a');
+    result2 = list::find_char(head2, '\0');
     EXPECT_EQ(list::index(head2, result1), -1);
+    EXPECT_EQ(list::index(head2, result2), -1);
 }
 
 TEST(ListTests, find_list) {
