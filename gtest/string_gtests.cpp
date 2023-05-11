@@ -88,7 +88,7 @@ TEST(StringClass, Reverse) {
 TEST(StringClass, IndexOfChar) {
     String test("test string");
     EXPECT_EQ(test.indexOf('r'), 7);
-    EXPECT_EQ(test.indexOf('\0'), 0);
+    EXPECT_EQ(test.indexOf('\0'), -1);
 
     String empty("");
     EXPECT_EQ(empty.indexOf('\0'), 0);

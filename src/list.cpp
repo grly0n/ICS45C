@@ -91,6 +91,7 @@ list::Node* list::append(Node* lhs, Node* rhs) {
 
 int list::index(Node* head, Node* node) {
     int count = 0;
+    if (!node) return -1;
     for(Node* p = head; p != nullptr; p=p->next)
         if (p == node) return count;
         else ++count;
@@ -99,7 +100,7 @@ int list::index(Node* head, Node* node) {
 
 
 list::Node* list::find_char(Node* head, char c) {
-    if (!c) return head;
+    if (!c) return nullptr;
     for(Node* p = head; p != nullptr; p=p->next)
         if (p->data == c) return p;
     return nullptr;
