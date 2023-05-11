@@ -173,15 +173,15 @@ TEST(ListTests, find_char) {
     Node *result3 = list::find_char(head1, 'z');
 
     EXPECT_EQ(list::index(head1, result1), 12);
-    EXPECT_EQ(list::index(head1, result2), -1);
-    EXPECT_EQ(list::index(head1, result3), -1);
+    EXPECT_EQ(list::index(head1, result2), 14);
+    EXPECT_EQ(list::index(head1, result3), 14);
     list::free(head1);
 
     Node* const head2 = list::from_string("");
     result1 = list::find_char(head2, 'a');
     result2 = list::find_char(head2, '\0');
-    EXPECT_EQ(list::index(head2, result1), -1);
-    EXPECT_EQ(list::index(head2, result2), -1);
+    EXPECT_EQ(list::index(head2, result1), 0);
+    EXPECT_EQ(list::index(head2, result2), 0);
 }
 
 TEST(ListTests, find_list) {
@@ -196,7 +196,7 @@ TEST(ListTests, find_list) {
     list::free(find2);
 
     Node *find3{list::from_string("complex")}, *result3{list::find_list(head1, find3)};
-    EXPECT_EQ(list::index(head1, result3), -1);
+    EXPECT_EQ(list::index(head1, result3), 23);
     list::free(find3);
 
     Node *find4{list::from_string("")}, *result4{list::find_list(head1, find4)};
@@ -205,7 +205,7 @@ TEST(ListTests, find_list) {
     list::free(head1);
 
     Node *head2{list::from_string("")}, *find5{list::from_string("foo")}, *result5{list::find_list(head2, find5)};
-    EXPECT_EQ(list::index(head2, result5), -1);
+    EXPECT_EQ(list::index(head2, result5), 0);
     list::free(find5);
     list::free(head2);
 }
