@@ -5,15 +5,25 @@ using namespace std;
 
 Picture::Picture() : head(nullptr), tail(nullptr) {}
 
+
 Picture::Picture(const Picture& other) {
-    ListNode *otherHead = other.head, *otherTail = other.tail;
-    for(; otherHead != nullptr; otherHead = otherHead->next) {
-        ListNode *newNode = new ListNode;
-        newNode->shape = otherHead->shape;
-        newNode->next = otherHead->next;
-        newNode->prev = otherHead->prev;
-        head = newNode;
-        tail = otherTail;
+    if (other.head == nullptr) head = tail = nullptr;
+    else {
+        head = new ListNode;
+        head->shape = other.head->shape->clone();
+        head->next = other.head->next;
+        head->prev = other.head->prev;
+        ListNode* next = other.head->next;
+        ListNode* temp = head;
+        while (next != nullptr) {
+            temp->next = new ListNode;
+            temp->next->shape = next->shape->clone();
+            temp->next->next = next->next;
+            temp->next->prev = next->prev;
+            temp = temp->next;
+            next = next->next;
+        }
+        tail = temp;
     }
 }
 
@@ -30,8 +40,8 @@ void Picture::swap(Picture &other) {
 
 Picture &Picture::operator=(const Picture& other) {
     if (&other == this) return *this;
-    if (head) delete this;
-    *this = Picture(other);
+    Picture dup(other);
+    swap(dup);
     return *this;
 }
 

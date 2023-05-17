@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <iostream>
 
 #include <string>
 
@@ -27,6 +28,24 @@ protected:
 
 TEST_F(PictureTests, Constructor) {
     Picture p;
+    p.add(Square{{0,0}, "square", 5});
+    Picture p2(p);
+    ASSERT_EQ(p2.total_area(), 25);
+    p2.add(Rectangle{{0,0}, "rectangle", 10, 5});
+    ASSERT_EQ(p2.total_area(), 75);
+}
+
+TEST_F(PictureTests, Assignment) {
+    Picture p;
+    p.add(Square{{0,0}, "square", 5});
+    p.add(Rectangle{{0,0}, "rectangle", 10, 5});
+    ASSERT_EQ(p.total_area(), 75);
+    Picture p2 = p;
+    ASSERT_EQ(p2.total_area(), 75);
+
+    Picture p3;
+    p2 = p3;
+    ASSERT_EQ(p2.total_area(), 0);
 }
 
 TEST_F(PictureTests, TotalArea) {
