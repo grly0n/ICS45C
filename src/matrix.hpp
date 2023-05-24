@@ -1,8 +1,6 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 
 #include "array.hpp"
 
@@ -43,15 +41,9 @@ private:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix) {
-    std::stringstream temp;
-    temp << std::setprecision(2);
-    for (int i = 0; i < matrix.num_rows(); ++i) {
-        for (int j = 0; j < matrix.num_cols(); ++j) {
-            temp << matrix[i][j] << ' ';
-        }
-        temp << '\n';
+    for(int i = 0; i < matrix.num_rows(); ++i) {
+        out << matrix[i] << std::endl;
     }
-    out << temp.str();
     return out;
 }
 
