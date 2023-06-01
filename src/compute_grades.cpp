@@ -180,6 +180,6 @@ std::istream& operator>>(std::istream& in, Gradebook& b) {
 
 //Gradebook inserter
 std::ostream& operator<<(std::ostream& out, const Gradebook& b) {
-    std::for_each(begin(b.students), end(b.students), [&](Student s){out << s;});
+    std::for_each(begin(b.students), end(b.students), [&](Student s){out << s << '\n';});
     return out;
 }

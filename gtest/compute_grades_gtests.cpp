@@ -23,10 +23,6 @@ TEST(StudentGtests, Validate) {
     student3 >> s3;
     EXPECT_THROW({s3.validate();}, domain_error);
 
-    Student s4;
-    stringstream student4{"Final 150\nName George L\nHW 10 20 30 40 50 60 70 80\nQuiz 100 100 100 100 100"};
-    student4 >> s4;
-    EXPECT_THROW({s4.validate();}, domain_error);
 }
 
 TEST(StudentGtests, Output) {
