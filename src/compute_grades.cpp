@@ -51,7 +51,7 @@ std::istream& operator>>(std::istream& in, Student& s) {
                 stream >> s.first_name;
                 if (!stream.eof()) s.last_name = std::string();
                 std::for_each(std::istream_iterator<std::string>(stream), {}, 
-                    [&](std::string str){s.last_name += str + ' ';});
+                    [&](std::string str){s.last_name += ' ' + str;});
             }
             else if (keyword == std::string("Quiz")) {
                 std::for_each(std::istream_iterator<std::string>(stream), {},
@@ -74,12 +74,12 @@ std::istream& operator>>(std::istream& in, Student& s) {
 
 //Student inserter
 std::ostream& operator<<(std::ostream& out, const Student& s) {
-    out << std::left << std::setw(8) << "Name: " << s.first_name << ' ' << s.last_name << '\n' <<
+    out << std::left << std::setw(8) << "Name: " << s.first_name << s.last_name << '\n' <<
            std::setw(8) << "HW Ave: " << s.hw_avg << '\n' <<
            std::setw(8) << "QZ Ave: " << s.quiz_avg << '\n' <<
            std::setw(8) << "Final: " << s.final_score << '\n' <<
            std::setw(8) << "Total: " << s.course_score << '\n' <<
-           std::setw(8) << "Grade: " << s.course_grade << '\n' << std::endl;
+           std::setw(8) << "Grade: " << s.course_grade << std::endl;
     return out;
 }
 
@@ -99,7 +99,8 @@ void Student::compute_quiz_avg() {
 
 //Compute average hw
 void Student::compute_hw_avg() {
-    hw_avg = std::accumulate(begin(hw), end(hw), 0.0) / hw.size() + 0.0;
+    if (!hw.size()) hw_avg = 0;
+    else hw_avg = std::accumulate(begin(hw), end(hw), 0.0) / hw.size() + 0.0;
 }
 
 
