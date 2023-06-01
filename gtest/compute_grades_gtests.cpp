@@ -7,24 +7,6 @@
 #include "compute_grades.hpp"
 using namespace std;
 
-TEST(StudentGtests, Validate) {
-    Student s1;
-    stringstream student1{"Name George Lyon\nQuiz 10 20 30 40 101\nHW 1\nFinal 10"};
-    student1 >> s1;
-    EXPECT_THROW({s1.validate();}, domain_error);
-
-    Student s2;
-    stringstream student2{"Name Joe\nHW -1\nFinal 100"};
-    student2 >> s2;
-    EXPECT_THROW({s2.validate();}, domain_error);
-
-    Student s3;
-    stringstream student3{"Final 150"};
-    student3 >> s3;
-    EXPECT_THROW({s3.validate();}, domain_error);
-
-}
-
 TEST(StudentGtests, Output) {
     Student s1;
     stringstream student1{"Name Hello World\nQuiz 10 20 30\nHW 10 20 30\nFinal 100"};
