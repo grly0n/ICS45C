@@ -108,7 +108,7 @@ Quiz  65  65  65  0  65  65  65  65  65
 HW    65  65  65  65  65  65  65  65  65
 Final 65
 
-Name Julius Hibbert
+Name Julius Hibbert 
 Quiz  97  97  97  97  97  9  97  97  97
 HW    97  97  97  97  97  97  97  97  97
 Final 97
