@@ -29,7 +29,7 @@ TEST(MapArrayTests, SubscriptIterators) {
     EXPECT_EQ(map.begin(), map.end());
 
     map["foo"] = 10;
-
+    
     EXPECT_LT(map.begin(), map.end());
     EXPECT_EQ(map.end() - map.begin(), 1);
 
